@@ -14,7 +14,7 @@ on:
           - rollback
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
