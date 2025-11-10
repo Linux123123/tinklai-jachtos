@@ -1,0 +1,8 @@
+resources/js/components/ui/*
+resources/js/ziggy.js
+resources/views/mail/*
+resources/js/types/generated.d.ts
+resources/js/types/ziggy.d.ts
+app/
+public/
+storage/
