@@ -32,13 +32,13 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
                 <DropdownMenuItem asChild>
                     <Link className="block w-full" href={index()} as="button" prefetch onClick={cleanup}>
                         <LayoutGrid className="mr-2" />
-                        Dashboard
+                        Skydelis
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <Link className="block w-full" href={edit()} as="button" prefetch onClick={cleanup}>
                         <Settings className="mr-2" />
-                        Settings
+                        Nustatymai
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -46,7 +46,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             <DropdownMenuItem asChild>
                 <Link className="block w-full" href={logout()} as="button" onClick={handleLogout} data-test="logout-button">
                     <LogOut className="mr-2" />
-                    Log out
+                    Atsijungti
                 </Link>
             </DropdownMenuItem>
         </>

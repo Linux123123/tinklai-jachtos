@@ -36,13 +36,13 @@ export function AppSidebar() {
 
         // Client permissions (all authenticated users)
         items.push({
-            title: 'My Bookings',
+            title: 'Mano Rezevacijos',
             href: '/my-bookings',
             icon: Calendar,
         });
 
         items.push({
-            title: 'Messages',
+            title: 'Žinutės',
             href: '/messages',
             icon: MessageSquare,
         });
@@ -50,13 +50,13 @@ export function AppSidebar() {
         // Owner permissions
         if (userHasRole(user, 'owner') || userHasRole(user, 'admin')) {
             items.push({
-                title: 'My Yachts',
+                title: 'Manos Jachtos',
                 href: '/my-yachts',
                 icon: Sailboat,
             });
 
             items.push({
-                title: 'Manage Bookings',
+                title: 'Savininko Rezervacijos',
                 href: '/owner/bookings',
                 icon: Calendar,
             });
@@ -65,13 +65,13 @@ export function AppSidebar() {
         // Admin permissions
         if (userHasRole(user, 'admin')) {
             items.push({
-                title: 'Statistics',
+                title: 'Statistika',
                 href: '/admin/statistics',
                 icon: BarChart3,
             });
 
             items.push({
-                title: 'User Management',
+                title: 'Vartotojai',
                 href: '/admin/users',
                 icon: Users,
             });
