@@ -247,16 +247,16 @@ export default function MyBookingsShow({ booking }: MyBookingsShowProps) {
                         {(canCancelBooking() || (booking.status === 'completed' && !booking.review)) && (
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>Actions</CardTitle>
+                                    <CardTitle>Veiksmai</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-3">
                                     {canCancelBooking() && (
                                         <>
                                             <Button variant="destructive" className="w-full" onClick={handleCancelBooking}>
                                                 <XCircle className="mr-2 h-4 w-4" />
-                                                Cancel Booking
+                                                Atšaukti rezervaciją
                                             </Button>
-                                            <p className="text-muted-foreground text-xs">You can cancel this booking until the check-in date.</p>
+                                            <p className="text-muted-foreground text-xs">Galima atšaukti rezervaciją iki jos pradžios datos.</p>
                                         </>
                                     )}
                                     {booking.status === 'completed' && !booking.review && (
@@ -264,10 +264,10 @@ export default function MyBookingsShow({ booking }: MyBookingsShowProps) {
                                             <Button asChild className="w-full">
                                                 <Link href={`/bookings/${booking.id}/review`}>
                                                     <Star className="mr-2 h-4 w-4" />
-                                                    Leave a Review
+                                                    Palikti atsiliepimą
                                                 </Link>
                                             </Button>
-                                            <p className="text-muted-foreground text-xs">Share your experience with this yacht rental.</p>
+                                            <p className="text-muted-foreground text-xs">Pasidalink savo mintis apie šią jachtą.</p>
                                         </>
                                     )}
                                 </CardContent>
@@ -277,21 +277,21 @@ export default function MyBookingsShow({ booking }: MyBookingsShowProps) {
                         {/* Quick Info */}
                         <Card>
                             <CardHeader>
-                                <CardTitle>Quick Info</CardTitle>
+                                <CardTitle>Info</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-3">
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-muted-foreground">Booking ID</span>
+                                    <span className="text-muted-foreground">Užsakymo ID</span>
                                     <span className="font-medium">#{booking.id}</span>
                                 </div>
                                 <Separator />
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-muted-foreground">Status</span>
+                                    <span className="text-muted-foreground">Statusas</span>
                                     <Badge variant={getStatusVariant(booking.status)}>{BookingStatus[booking.status]}</Badge>
                                 </div>
                                 <Separator />
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-muted-foreground">Created</span>
+                                    <span className="text-muted-foreground">Sukurta</span>
                                     <span className="font-medium">{format(parseISO(booking.createdAt), 'MMM dd, yyyy')}</span>
                                 </div>
                             </CardContent>
