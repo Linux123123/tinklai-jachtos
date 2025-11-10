@@ -25,18 +25,6 @@ class DatabaseSeeder extends Seeder
         // Seed roles and permissions first
         $this->call(RolePermissionSeeder::class);
 
-                $this->command->info('🌊 Kuriami jachtų nuomos portalo duomenys...');
-
-        // Create admin
-        $this->command->info('👤 Kuriamas administratoriaus vartotojas...');
-        $admin = User::create([
-            'name' => 'Admin Vartotojas',
-            'email' => 'admin@yacht.com',
-            'password' => 'password',
-        ]);
-        $admin->assignRole(Role::ADMIN->value);
-
-        // Create yacht owners
         $this->command->info('🌊 Kuriami jachtų nuomos portalo duomenys...');
 
         // Create admin
@@ -49,7 +37,7 @@ class DatabaseSeeder extends Seeder
         $admin->assignRole(Role::ADMIN->value);
 
         // Create yacht owners
-        $this->command->info(' Kuriami jachtų savininkų vartotojai...');
+        $this->command->info('👥 Kuriami jachtų savininkai...');
         $owners = [
             ['name' => 'Jonas Jonaitis', 'email' => 'jonas@yacht.com'],
             ['name' => 'Sara Jonaitienė', 'email' => 'sara@yacht.com'],
@@ -70,75 +58,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create clients
-        $this->command->info('👥 Kuriami klientų vartotojai...');
-        $clients = [
-            ['name' => 'Aistė Kuper', 'email' => 'aiste@client.com'],
-            ['name' => 'Robertas Tailorius', 'email' => 'robertas@client.com'],
-            ['name' => 'Karolina Baltaitė', 'email' => 'karolina@client.com'],
-            ['name' => 'Danielius Haris', 'email' => 'danielius@client.com'],
-            ['name' => 'Ieva Martinez', 'email' => 'ieva@client.com'],
-            ['name' => 'Pranas Garcia', 'email' => 'pranas@client.com'],
-            ['name' => 'Grasilda Li', 'email' => 'grasilda@client.com'],
-            ['name' => 'Henrikas Klarkas', 'email' => 'henrikas@client.com'],
-        ];
-
-        $ownerUsers = [];
-        foreach ($owners as $ownerData) {
-            $owner = User::create([
-                'name' => $ownerData['name'],
-                'email' => $ownerData['email'],
-                'password' => 'password',
-            ]);
-            $owner->assignRole(Role::OWNER->value);
-            $ownerUsers[] = $owner;
-        }
-
-        // Create clients
-        $this->command->info('👥 Kuriami klientų vartotojai...');
-        $clients = [
-            ['name' => 'Aistė Kuper', 'email' => 'aiste@client.com'],
-            ['name' => 'Robertas Tailorius', 'email' => 'robertas@client.com'],
-            ['name' => 'Karolina Baltaitė', 'email' => 'karolina@client.com'],
-            ['name' => 'Danielius Haris', 'email' => 'danielius@client.com'],
-            ['name' => 'Ieva Martinez', 'email' => 'ieva@client.com'],
-            ['name' => 'Pranas Garcia', 'email' => 'pranas@client.com'],
-            ['name' => 'Grasilda Li', 'email' => 'grasilda@client.com'],
-            ['name' => 'Henrikas Klarkas', 'email' => 'henrikas@client.com'],
-        ];
-        $owners = [
-            ['name' => 'Jonas Jonaitis', 'email' => 'jonas@yacht.com'],
-            ['name' => 'Sara Jonaitienė', 'email' => 'sara@yacht.com'],
-            ['name' => 'Mykolas Rudys', 'email' => 'mykolas@yacht.com'],
-            ['name' => 'Ema Vilson', 'email' => 'ema@yacht.com'],
-            ['name' => 'Davidas Milleris', 'email' => 'davidas@yacht.com'],
-        ];
-
-        $ownerUsers = [];
-        foreach ($owners as $ownerData) {
-            $owner = User::create([
-                'name' => $ownerData['name'],
-                'email' => $ownerData['email'],
-                'password' => 'password',
-            ]);
-            $owner->assignRole(Role::OWNER->value);
-            $ownerUsers[] = $owner;
-        }
-
-        // Create clients
-        $this->command->info('👥 Kuriami klientų vartotojai...');
-        $clients = [
-            ['name' => 'Aistė Kuper', 'email' => 'aiste@client.com'],
-            ['name' => 'Robertas Tailorius', 'email' => 'robertas@client.com'],
-            ['name' => 'Karolina Baltaitė', 'email' => 'karolina@client.com'],
-            ['name' => 'Danielius Haris', 'email' => 'danielius@client.com'],
-            ['name' => 'Ieva Martinez', 'email' => 'ieva@client.com'],
-            ['name' => 'Pranas Garcia', 'email' => 'pranas@client.com'],
-            ['name' => 'Grasilda Li', 'email' => 'grasilda@client.com'],
-            ['name' => 'Henrikas Klarkas', 'email' => 'henrikas@client.com'],
-        ];
-
-        // Create clients
-        $this->command->info('👥 Kuriami klientų vartotojai...');
+        $this->command->info('👥 Kuriami klientai...');
         $clients = [
             ['name' => 'Aistė Kuper', 'email' => 'aiste@client.com'],
             ['name' => 'Robertas Tailorius', 'email' => 'robertas@client.com'],
@@ -243,7 +163,9 @@ class DatabaseSeeder extends Seeder
                 'location' => 'Santa Barbara, Kalifornija',
                 'query' => 'sailboat sunset ocean',
             ],
-        ];        // Create yachts with images
+        ];
+
+        // Create yachts with images
         $this->command->info('⛵ Kuriamos jachtos su tikromis nuotraukomis...');
         $yachts = [];
         foreach ($yachtsData as $index => $yachtData) {
@@ -319,7 +241,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-                // Create reviews for completed bookings
+        // Create reviews for completed bookings
         $this->command->info('⭐ Kuriami atsiliepimai...');
         $reviewComments = [
             'Nuostabi patirtis! Jachta buvo puikios būklės, o savininkas labai paslaugus.',
@@ -347,7 +269,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-                // Create conversations and messages
+        // Create conversations and messages
         $this->command->info('💬 Kuriamos žinutės...');
         $messageTemplates = [
             'Sveiki! Norėčiau užsisakyti jūsų jachtą. Ar ji laisva kitą mėnesį?',
