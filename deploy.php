@@ -6,7 +6,7 @@ require 'recipe/laravel.php';
 
 // General settings
 set('application', 'yachts');
-set('repository', 'git@github.com:linux123123/tinklai-yachts.git');
+set('repository', 'git@github.com:Linux123123/tinklai-jachtos.git');
 set('default_timeout', 480); // 8 minutes
 set('update_code_strategy', 'clone'); // No git bare, as we want .git to be available in the release directory
 
