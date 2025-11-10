@@ -11,6 +11,19 @@ interface YachtCardProps {
     actionButton?: React.ReactNode;
 }
 
+const YachtStatus: Record<any, any> = {
+    'available': 'Galima nuomoti',
+    'unavailable': 'Negalima nuomoti',
+    'maintenance': 'Priežiūroje',
+}
+
+const YachtType: Record<any, any> = {
+    'sailboat': 'Jachta',
+    'motorboat': 'Motorinė valtis',
+    'catamaran': 'Katamaras',
+    'yacht': 'Jachta',
+}
+
 export function YachtCard({ yacht, showOwner = false, actionButton }: YachtCardProps) {
     return (
         <Card className="flex flex-col transition-shadow hover:shadow-lg">
@@ -31,9 +44,9 @@ export function YachtCard({ yacht, showOwner = false, actionButton }: YachtCardP
                 <div className="space-y-2 text-sm">
                     <div className="text-muted-foreground flex items-center">
                         <Badge variant="outline" className="mr-2">
-                            {yacht.type}
+                            {YachtType[yacht.type] || 'Nežinomas tipas'}
                         </Badge>
-                        {yacht.status && <Badge variant={yacht.status === 'available' ? 'default' : 'secondary'}>{yacht.status}</Badge>}
+                        {yacht.status && <Badge variant={yacht.status === 'available' ? 'default' : 'secondary'}>{YachtStatus[yacht.status] ?? 'Statusas nežinomas'}</Badge>}
                     </div>
                     <div className="text-muted-foreground flex items-center">
                         <MapPin className="mr-2 h-4 w-4" />
@@ -48,7 +61,7 @@ export function YachtCard({ yacht, showOwner = false, actionButton }: YachtCardP
                             <span className="text-xs">Savininkas: {yacht.owner.name}</span>
                         </div>
                     )}
-                    {yacht.averageRating && yacht.averageRating > 0 ? (
+                    {yacht.averageRating && yacht.averageRating > 0 && yacht.reviewsCount  ? (
                         <div className="flex items-center">
                             <Star className="mr-1 h-4 w-4 fill-yellow-500 text-yellow-500" />
                             <span className="font-medium">{yacht.averageRating}</span>
