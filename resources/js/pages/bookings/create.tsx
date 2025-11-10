@@ -337,7 +337,7 @@ export default function BookingCreate({ yacht }: BookingCreateProps) {
                             <CardContent className="space-y-3">
                                 <div className="flex items-center justify-between text-sm">
                                     <span className="text-muted-foreground">Tipas</span>
-                                    <span className="font-medium capitalize">{yacht.type}</span>
+                                    <span className="font-medium capitalize">{YachtType[yacht.type]}</span>
                                 </div>
                                 <Separator />
                                 <div className="flex items-center justify-between text-sm">
