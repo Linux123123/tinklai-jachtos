@@ -68,7 +68,6 @@ class BookingPolicy
         if (
             $user->hasPermissionTo(Permission::MANAGE_YACHT_BOOKINGS->value)
             && $booking->yacht->user_id === $user->id
-            && $booking->status === 'pending'
         ) {
             return true;
         }
