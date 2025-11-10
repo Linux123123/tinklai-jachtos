@@ -50,8 +50,6 @@ class BookingController extends Controller
             },
         ]);
 
-        debug($yacht);
-
         return Inertia::render('bookings/create', [
             'yacht' => new YachtResource($yacht),
         ]);
