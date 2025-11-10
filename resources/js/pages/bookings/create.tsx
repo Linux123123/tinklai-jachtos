@@ -25,6 +25,13 @@ interface PriceBreakdown {
     pricePerWeek: number;
 }
 
+const YachtType: Record<any, any> = {
+    'sailboat': 'Jachta',
+    'motorboat': 'Motorinė valtis',
+    'catamaran': 'Katamaras',
+    'yacht': 'Jachta',
+}
+
 export default function BookingCreate({ yacht }: BookingCreateProps) {
     const [startDate, setStartDate] = useState<Date>();
     const [endDate, setEndDate] = useState<Date>();
@@ -167,7 +174,7 @@ export default function BookingCreate({ yacht }: BookingCreateProps) {
                         </div>
                         <div className="flex items-center gap-1">
                             <Anchor className="h-4 w-4" />
-                            <span className="capitalize">{yacht.type}</span>
+                            <span className="capitalize">{YachtType[yacht.type]}</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <Users className="h-4 w-4" />
