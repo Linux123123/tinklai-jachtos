@@ -47,14 +47,14 @@ export function AppSidebar() {
             icon: MessageSquare,
         });
 
+        items.push({
+            title: 'Manos Jachtos',
+            href: '/my-yachts',
+            icon: Sailboat,
+        });
+
         // Owner permissions
         if (userHasRole(user, 'owner') || userHasRole(user, 'admin')) {
-            items.push({
-                title: 'Manos Jachtos',
-                href: '/my-yachts',
-                icon: Sailboat,
-            });
-
             items.push({
                 title: 'Savininko Rezervacijos',
                 href: '/owner/bookings',
