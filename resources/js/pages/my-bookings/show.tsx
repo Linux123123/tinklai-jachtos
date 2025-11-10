@@ -14,6 +14,13 @@ interface MyBookingsShowProps {
     booking: Booking;
 }
 
+const BookingStatus: Record<any, any> = {
+    'pending': 'Laukiama patvirtinimo',
+    'confirmed': 'Patvirtinta',
+    'cancelled': 'Atšaukta',
+    'completed': 'Užbaigta',
+}
+
 export default function MyBookingsShow({ booking }: MyBookingsShowProps) {
     const getStatusVariant = (status: string) => {
         switch (status) {
@@ -76,7 +83,7 @@ export default function MyBookingsShow({ booking }: MyBookingsShowProps) {
                                         <CardDescription>Rezervuota {format(parseISO(booking.createdAt), 'PPP')}</CardDescription>
                                     </div>
                                     <Badge variant={getStatusVariant(booking.status)} className="px-4 py-2 text-lg">
-                                        {booking.status}
+                                        {BookingStatus[booking.status]}
                                     </Badge>
                                 </div>
                             </CardHeader>
@@ -280,7 +287,7 @@ export default function MyBookingsShow({ booking }: MyBookingsShowProps) {
                                 <Separator />
                                 <div className="flex items-center justify-between text-sm">
                                     <span className="text-muted-foreground">Status</span>
-                                    <Badge variant={getStatusVariant(booking.status)}>{booking.status}</Badge>
+                                    <Badge variant={getStatusVariant(booking.status)}>{BookingStatus[booking.status]}</Badge>
                                 </div>
                                 <Separator />
                                 <div className="flex items-center justify-between text-sm">
