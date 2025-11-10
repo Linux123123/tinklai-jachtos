@@ -18,7 +18,7 @@ import AppLogoIcon from './app-logo-icon';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Browse Yachts',
+        title: 'Naršyti Jachtas',
         href: '/',
         icon: LayoutGrid,
     },
@@ -169,10 +169,10 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         ) : (
                             <div className="flex items-center space-x-2">
                                 <Button variant="ghost" asChild>
-                                    <Link href={login()}>Log in</Link>
+                                    <Link href={login()}>Prisijungti</Link>
                                 </Button>
                                 <Button asChild>
-                                    <Link href={register()}>Register</Link>
+                                    <Link href={register()}>Registruotis</Link>
                                 </Button>
                             </div>
                         )}
