@@ -14,6 +14,20 @@ interface YachtShowProps {
     yacht: Yacht;
 }
 
+const YachtStatus: Record<any, any> = {
+    'available': 'Galima nuomoti',
+    'unavailable': 'Negalima nuomoti',
+    'maintenance': 'Priežiūroje',
+}
+
+const YachtType: Record<any, any> = {
+    'sailboat': 'Jachta',
+    'motorboat': 'Motorinė valtis',
+    'catamaran': 'Katamaras',
+    'yacht': 'Jachta',
+}
+
+
 export default function YachtShow({ yacht }: YachtShowProps) {
     const [selectedPeriod, setSelectedPeriod] = useState<number | null>(null);
 
@@ -46,7 +60,7 @@ export default function YachtShow({ yacht }: YachtShowProps) {
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <Anchor className="h-4 w-4" />
-                                    <span className="capitalize">{yacht.type}</span>
+                                    <span className="capitalize">{YachtType[yacht.type] ?? "Nežinzomas tipas"}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <Users className="h-4 w-4" />
@@ -130,7 +144,7 @@ export default function YachtShow({ yacht }: YachtShowProps) {
                                 </div>
                                 <div>
                                     <p className="text-sm font-medium">Būsena</p>
-                                    <Badge variant={yacht.status === 'available' ? 'default' : 'secondary'}>{yacht.status}</Badge>
+                                    <Badge variant={yacht.status === 'available' ? 'default' : 'secondary'}>{YachtStatus[yacht.status] ?? "Nežinomas Statusas"}</Badge>
                                 </div>
                             </CardContent>
                         </Card>
