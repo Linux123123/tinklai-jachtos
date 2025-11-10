@@ -90,6 +90,10 @@ task('deploy', [
     // Migration
     'artisan:migrate',
 
+    // Restart queue and reverb
+    'artisan:queue:restart',
+    'artisan:reverb:restart',
+
     // Finalize deployment
     'deploy:publish',
 ]);
