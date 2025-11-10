@@ -16,10 +16,10 @@ add('shared_dirs', []);
 add('writable_dirs', []);
 
 // Hosts
-host('yachts.linux123123.com')
+host('yacht.linux123123.com')
     ->set('hostname', '45.43.163.102')
-    ->set('remote_user', 'yachts')
-    ->set('deploy_path', '/home/yachts/yachts')
+    ->set('remote_user', 'yacht')
+    ->set('deploy_path', '/home/yacht/yacht')
     ->set('forward_agent', true)
     ->setLabels([
         'type' => 'production',
