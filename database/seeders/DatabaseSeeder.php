@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
-    private const PEXELS_API_KEY = '7jIhHYT73ApjGQzBDnSgJYdaYiE8ahDoAcPTBtQN7OcAJLFFJINhc4dN';
-
     /**
      * Seed the application's database.
      */
@@ -359,7 +357,7 @@ class DatabaseSeeder extends Seeder
     {
         try {
             $response = Http::withHeaders([
-                'Authorization' => self::PEXELS_API_KEY,
+                'Authorization' => config('services.pexels.api_key'),
             ])->get('https://api.pexels.com/v1/search', [
                         'query' => $query,
                         'per_page' => 6,
