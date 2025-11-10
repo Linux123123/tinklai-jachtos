@@ -63,6 +63,11 @@ task('deploy:pnpm_build', function () {
     run('cd {{release_path}} && pnpm run build');
 });
 
+desc('Restart Reverb service');
+task('artisan:broadcast:restart', function () {
+    artisan('reverb:restart', ['showOutput']);
+});
+
 // Deployment task
 desc('Deploys your project');
 task('deploy', [
@@ -92,7 +97,7 @@ task('deploy', [
 
     // Restart queue and reverb
     'artisan:queue:restart',
-    'artisan:reverb:restart',
+    'artisan:broadcast:restart',
 
     // Finalize deployment
     'deploy:publish',
