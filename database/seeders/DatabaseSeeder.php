@@ -25,25 +25,37 @@ class DatabaseSeeder extends Seeder
         // Seed roles and permissions first
         $this->call(RolePermissionSeeder::class);
 
-        $this->command->info('🌊 Creating yacht rental portal data...');
+                $this->command->info('🌊 Kuriami jachtų nuomos portalo duomenys...');
 
         // Create admin
-        $this->command->info('👤 Creating admin user...');
+        $this->command->info('👤 Kuriamas administratoriaus vartotojas...');
         $admin = User::create([
-            'name' => 'Admin User',
+            'name' => 'Admin Vartotojas',
             'email' => 'admin@yacht.com',
             'password' => 'password',
         ]);
         $admin->assignRole(Role::ADMIN->value);
 
         // Create yacht owners
-        $this->command->info('👥 Creating yacht owners...');
+        $this->command->info('🌊 Kuriami jachtų nuomos portalo duomenys...');
+
+        // Create admin
+        $this->command->info('👤 Kuriamas administratoriaus vartotojas...');
+        $admin = User::create([
+            'name' => 'Admin Vartotojas',
+            'email' => 'admin@yacht.com',
+            'password' => 'password',
+        ]);
+        $admin->assignRole(Role::ADMIN->value);
+
+        // Create yacht owners
+        $this->command->info(' Kuriami jachtų savininkų vartotojai...');
         $owners = [
-            ['name' => 'John Smith', 'email' => 'john@yacht.com'],
-            ['name' => 'Sarah Johnson', 'email' => 'sarah@yacht.com'],
-            ['name' => 'Michael Brown', 'email' => 'michael@yacht.com'],
-            ['name' => 'Emma Wilson', 'email' => 'emma@yacht.com'],
-            ['name' => 'David Miller', 'email' => 'david@yacht.com'],
+            ['name' => 'Jonas Jonaitis', 'email' => 'jonas@yacht.com'],
+            ['name' => 'Sara Jonaitienė', 'email' => 'sara@yacht.com'],
+            ['name' => 'Mykolas Rudys', 'email' => 'mykolas@yacht.com'],
+            ['name' => 'Ema Vilson', 'email' => 'ema@yacht.com'],
+            ['name' => 'Davidas Milleris', 'email' => 'davidas@yacht.com'],
         ];
 
         $ownerUsers = [];
@@ -58,16 +70,84 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create clients
-        $this->command->info('👥 Creating client users...');
+        $this->command->info('👥 Kuriami klientų vartotojai...');
         $clients = [
-            ['name' => 'Alice Cooper', 'email' => 'alice@client.com'],
-            ['name' => 'Bob Taylor', 'email' => 'bob@client.com'],
-            ['name' => 'Carol White', 'email' => 'carol@client.com'],
-            ['name' => 'Daniel Harris', 'email' => 'daniel@client.com'],
-            ['name' => 'Eve Martinez', 'email' => 'eve@client.com'],
-            ['name' => 'Frank Garcia', 'email' => 'frank@client.com'],
-            ['name' => 'Grace Lee', 'email' => 'grace@client.com'],
-            ['name' => 'Henry Clark', 'email' => 'henry@client.com'],
+            ['name' => 'Aistė Kuper', 'email' => 'aiste@client.com'],
+            ['name' => 'Robertas Tailorius', 'email' => 'robertas@client.com'],
+            ['name' => 'Karolina Baltaitė', 'email' => 'karolina@client.com'],
+            ['name' => 'Danielius Haris', 'email' => 'danielius@client.com'],
+            ['name' => 'Ieva Martinez', 'email' => 'ieva@client.com'],
+            ['name' => 'Pranas Garcia', 'email' => 'pranas@client.com'],
+            ['name' => 'Grasilda Li', 'email' => 'grasilda@client.com'],
+            ['name' => 'Henrikas Klarkas', 'email' => 'henrikas@client.com'],
+        ];
+
+        $ownerUsers = [];
+        foreach ($owners as $ownerData) {
+            $owner = User::create([
+                'name' => $ownerData['name'],
+                'email' => $ownerData['email'],
+                'password' => 'password',
+            ]);
+            $owner->assignRole(Role::OWNER->value);
+            $ownerUsers[] = $owner;
+        }
+
+        // Create clients
+        $this->command->info('👥 Kuriami klientų vartotojai...');
+        $clients = [
+            ['name' => 'Aistė Kuper', 'email' => 'aiste@client.com'],
+            ['name' => 'Robertas Tailorius', 'email' => 'robertas@client.com'],
+            ['name' => 'Karolina Baltaitė', 'email' => 'karolina@client.com'],
+            ['name' => 'Danielius Haris', 'email' => 'danielius@client.com'],
+            ['name' => 'Ieva Martinez', 'email' => 'ieva@client.com'],
+            ['name' => 'Pranas Garcia', 'email' => 'pranas@client.com'],
+            ['name' => 'Grasilda Li', 'email' => 'grasilda@client.com'],
+            ['name' => 'Henrikas Klarkas', 'email' => 'henrikas@client.com'],
+        ];
+        $owners = [
+            ['name' => 'Jonas Jonaitis', 'email' => 'jonas@yacht.com'],
+            ['name' => 'Sara Jonaitienė', 'email' => 'sara@yacht.com'],
+            ['name' => 'Mykolas Rudys', 'email' => 'mykolas@yacht.com'],
+            ['name' => 'Ema Vilson', 'email' => 'ema@yacht.com'],
+            ['name' => 'Davidas Milleris', 'email' => 'davidas@yacht.com'],
+        ];
+
+        $ownerUsers = [];
+        foreach ($owners as $ownerData) {
+            $owner = User::create([
+                'name' => $ownerData['name'],
+                'email' => $ownerData['email'],
+                'password' => 'password',
+            ]);
+            $owner->assignRole(Role::OWNER->value);
+            $ownerUsers[] = $owner;
+        }
+
+        // Create clients
+        $this->command->info('👥 Kuriami klientų vartotojai...');
+        $clients = [
+            ['name' => 'Aistė Kuper', 'email' => 'aiste@client.com'],
+            ['name' => 'Robertas Tailorius', 'email' => 'robertas@client.com'],
+            ['name' => 'Karolina Baltaitė', 'email' => 'karolina@client.com'],
+            ['name' => 'Danielius Haris', 'email' => 'danielius@client.com'],
+            ['name' => 'Ieva Martinez', 'email' => 'ieva@client.com'],
+            ['name' => 'Pranas Garcia', 'email' => 'pranas@client.com'],
+            ['name' => 'Grasilda Li', 'email' => 'grasilda@client.com'],
+            ['name' => 'Henrikas Klarkas', 'email' => 'henrikas@client.com'],
+        ];
+
+        // Create clients
+        $this->command->info('👥 Kuriami klientų vartotojai...');
+        $clients = [
+            ['name' => 'Aistė Kuper', 'email' => 'aiste@client.com'],
+            ['name' => 'Robertas Tailorius', 'email' => 'robertas@client.com'],
+            ['name' => 'Karolina Baltaitė', 'email' => 'karolina@client.com'],
+            ['name' => 'Danielius Haris', 'email' => 'danielius@client.com'],
+            ['name' => 'Ieva Martinez', 'email' => 'ieva@client.com'],
+            ['name' => 'Pranas Garcia', 'email' => 'pranas@client.com'],
+            ['name' => 'Grasilda Li', 'email' => 'grasilda@client.com'],
+            ['name' => 'Henrikas Klarkas', 'email' => 'henrikas@client.com'],
         ];
 
         $clientUsers = [];
@@ -84,89 +164,87 @@ class DatabaseSeeder extends Seeder
         // Yacht data
         $yachtsData = [
             [
-                'title' => 'Ocean Dream',
-                'description' => 'Luxurious sailing yacht perfect for romantic getaways. Features a spacious deck, comfortable cabins, and modern amenities. Enjoy breathtaking sunsets and peaceful sailing experiences.',
+                'title' => 'Vandenyno Svajonė',
+                'description' => 'Prabangi burinė jachta, puikiai tinkanti romantiškiems pabėgimams. Turi erdvų denį, patogias kajutes ir modernius patogumus. Mėgaukitės kvapą gniaužiančiais saulėlydžiais ir ramiomis buriavimo patirtimis.',
                 'type' => 'sailboat',
                 'capacity' => 6,
-                'location' => 'Miami, Florida',
+                'location' => 'Majamis, Florida',
                 'query' => 'luxury sailing yacht',
             ],
             [
-                'title' => 'Sea Breeze',
-                'description' => 'Modern motor yacht with powerful engines and sleek design. Ideal for speed enthusiasts and island hopping adventures. Equipped with state-of-the-art navigation systems.',
+                'title' => 'Jūros Vėjas',
+                'description' => 'Moderni motorinė jachta su galingais varikliais ir aptakiu dizainu. Idealiai tinka greičio entuziastams ir salų lankymo nuotykiams. Įrengta moderniausia navigacijos sistema.',
                 'type' => 'motorboat',
                 'capacity' => 8,
-                'location' => 'San Diego, California',
+                'location' => 'San Diegas, Kalifornija',
                 'query' => 'motor yacht ocean',
             ],
             [
-                'title' => 'Paradise Catamaran',
-                'description' => 'Spacious catamaran offering stability and comfort for families. Multiple levels, large lounge areas, and excellent fishing spots. Perfect for group celebrations.',
+                'title' => 'Rojaus Katamaranas',
+                'description' => 'Erdvus katamaranas, siūlantis stabilumą ir komfortą šeimoms. Keli lygiai, didelės poilsio zonos ir puikios žvejybos vietos. Puikiai tinka grupiniams renginiams.',
                 'type' => 'catamaran',
                 'capacity' => 12,
-                'location' => 'Key West, Florida',
+                'location' => 'Ki Vestas, Florida',
                 'query' => 'catamaran sailing',
             ],
             [
-                'title' => 'Azure Lady',
-                'description' => 'Elegant yacht with premium finishes and luxury accommodations. Professional crew available. Ideal for corporate events and special occasions.',
+                'title' => 'Žydroji Dama',
+                'description' => 'Elegantiška jachta su aukščiausios kokybės apdaila ir prabangiais apartamentais. Galima profesionali įgula. Idealiai tinka verslo renginiams ir ypatingoms progoms.',
                 'type' => 'yacht',
                 'capacity' => 10,
-                'location' => 'Newport Beach, California',
+                'location' => 'Niuport Byčas, Kalifornija',
                 'query' => 'luxury yacht deck',
             ],
             [
-                'title' => 'Wind Dancer',
-                'description' => 'Classic sailing yacht combining traditional charm with modern comfort. Perfect for sailing purists who appreciate authentic maritime experiences.',
+                'title' => 'Vėjo Šokėja',
+                'description' => 'Klasikinė burinė jachta, jungianti tradicinį žavesį su moderniu komfortu. Puikiai tinka buriavimo puristams, vertinantiems autentiškas jūrines patirtis.',
                 'type' => 'sailboat',
                 'capacity' => 4,
-                'location' => 'Charleston, South Carolina',
+                'location' => 'Čarlstonas, Pietų Karolina',
                 'query' => 'classic sailboat',
             ],
             [
-                'title' => 'Thunder Wave',
-                'description' => 'High-performance motor yacht for thrill-seekers. Equipped with water sports equipment including jet skis and wakeboard. Entertainment system included.',
+                'title' => 'Griaustinio Banga',
+                'description' => 'Aukštos kokybės motorinė jachta adrenalino ieškotojams. Įrengta vandens sporto įranga, įskaitant vandens motociklus ir vandenlentę. Įtraukta pramogų sistema.',
                 'type' => 'motorboat',
                 'capacity' => 6,
-                'location' => 'Miami Beach, Florida',
+                'location' => 'Majami Byčas, Florida',
                 'query' => 'speed boat yacht',
             ],
             [
-                'title' => 'Serenity Now',
-                'description' => 'Peaceful catamaran perfect for meditation retreats and yoga sessions on water. Eco-friendly design with solar panels and sustainable features.',
+                'title' => 'Ramybė Dabar',
+                'description' => 'Ramus katamaranas, puikiai tinkantis meditacijos retritams ir jogos sesijoms ant vandens. Ekologiškas dizainas su saulės panelėmis ir tvariomis savybėmis.',
                 'type' => 'catamaran',
                 'capacity' => 8,
-                'location' => 'Honolulu, Hawaii',
+                'location' => 'Honolulu, Havajai',
                 'query' => 'catamaran sunset',
             ],
             [
-                'title' => 'Royal Voyager',
-                'description' => 'Majestic mega yacht with helicopter pad and multiple decks. Cinema room, gym, and spa facilities. Ultimate luxury experience on water.',
+                'title' => 'Karališkasis Keliautojas',
+                'description' => 'Didinga mega jachta su sraigtasparnių nusileidimo aikštele ir keliais deniais. Kino salė, sporto salė ir SPA įranga. Aukščiausios prabangos patirtis ant vandens.',
                 'type' => 'yacht',
                 'capacity' => 16,
-                'location' => 'Fort Lauderdale, Florida',
+                'location' => 'Fort Loderdeilas, Florida',
                 'query' => 'mega yacht luxury',
             ],
             [
-                'title' => 'Coastal Cruiser',
-                'description' => 'Versatile motor yacht perfect for coastal exploration and fishing trips. Well-equipped galley and comfortable sleeping quarters.',
+                'title' => 'Pakrantės Kruizeris',
+                'description' => 'Universali motorinė jachta, puikiai tinkanti pakrančių tyrinėjimui ir žvejybos išvykoms. Gerai įrengta virtuvė ir patogios miegamosios vietos.',
                 'type' => 'motorboat',
                 'capacity' => 5,
-                'location' => 'Seattle, Washington',
+                'location' => 'Sietlas, Vašingtonas',
                 'query' => 'fishing yacht',
             ],
             [
-                'title' => 'Sunset Paradise',
-                'description' => 'Beautiful sailing yacht with panoramic views and spacious deck. Ideal for photographers and sunset enthusiasts. Romantic ambiance guaranteed.',
+                'title' => 'Saulėlydžio Rojus',
+                'description' => 'Graži burinė jachta su panoraminiais vaizdais ir erdviu deniu. Idealiai tinka fotografams ir saulėlydžių entuziastams. Romantiška atmosfera garantuota.',
                 'type' => 'sailboat',
                 'capacity' => 7,
-                'location' => 'Santa Barbara, California',
+                'location' => 'Santa Barbara, Kalifornija',
                 'query' => 'sailboat sunset ocean',
             ],
-        ];
-
-        // Create yachts with images
-        $this->command->info('⛵ Creating yachts with real images...');
+        ];        // Create yachts with images
+        $this->command->info('⛵ Kuriamos jachtos su tikromis nuotraukomis...');
         $yachts = [];
         foreach ($yachtsData as $index => $yachtData) {
             $owner = $ownerUsers[$index % count($ownerUsers)];
@@ -188,11 +266,11 @@ class DatabaseSeeder extends Seeder
             $this->createPricing($yacht);
 
             $yachts[] = $yacht;
-            $this->command->info("  ✓ Created: {$yacht->title}");
+            $this->command->info("  ✓ Sukurta: {$yacht->title}");
         }
 
         // Create bookings (past completed ones for reviews)
-        $this->command->info('📅 Creating bookings...');
+        $this->command->info('📅 Kuriami užsakymai...');
         $bookings = [];
         foreach ($yachts as $yacht) {
             // Create 4-8 completed bookings for each yacht (for reviews)
@@ -241,21 +319,21 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // Create reviews for completed bookings
-        $this->command->info('⭐ Creating reviews...');
+                // Create reviews for completed bookings
+        $this->command->info('⭐ Kuriami atsiliepimai...');
         $reviewComments = [
-            'Amazing experience! The yacht was in perfect condition and the owner was very helpful.',
-            'Absolutely loved it! Would definitely book again. The sunset views were spectacular.',
-            'Great yacht, smooth sailing. Had an unforgettable time with family.',
-            'Perfect for our anniversary celebration. Everything was as described.',
-            'The yacht exceeded our expectations. Professional service and beautiful vessel.',
-            'Wonderful week on the water. The yacht was clean, well-maintained, and a joy to sail.',
-            'Outstanding experience! The owner provided excellent recommendations for routes.',
-            'Best vacation ever! The yacht was luxurious and comfortable.',
-            'Highly recommend this yacht. Great value for money and fantastic memories.',
-            'Incredible time! The yacht was perfect for our group and very spacious.',
-            'Fantastic yacht with all the amenities we needed. Owner was responsive and friendly.',
-            'Beautiful yacht, smooth booking process. Will definitely return!',
+            'Nuostabi patirtis! Jachta buvo puikios būklės, o savininkas labai paslaugus.',
+            'Absoliučiai patiko! Tikrai užsisakyčiau dar kartą. Saulėlydžio vaizdai buvo įspūdingi.',
+            'Puiki jachta, ramus plaukimas. Praleidome nepamirštamą laiką su šeima.',
+            'Puikiai tiko mūsų metinėms. Viskas buvo taip, kaip aprašyta.',
+            'Jachta viršijo mūsų lūkesčius. Profesionalus aptarnavimas ir gražus laivas.',
+            'Nuostabi savaitė ant vandens. Jachta buvo švari, gerai prižiūrėta ir malonu ja plaukti.',
+            'Išskirtinė patirtis! Savininkas pateikė puikių rekomendacijų maršrutams.',
+            'Geriausios atostogos! Jachta buvo prabangi ir patogi.',
+            'Labai rekomenduoju šią jachtą. Puikus kainos ir kokybės santykis ir fantastiški prisiminimai.',
+            'Neįtikėtinas laikas! Jachta buvo tobula mūsų grupei ir labai erdvi.',
+            'Fantastiška jachta su visais reikalingais patogumais. Savininkas buvo atsakingas ir draugiškas.',
+            'Graži jachta, sklandus užsakymo procesas. Tikrai grįšime!',
         ];
 
         foreach ($bookings as $booking) {
@@ -269,28 +347,28 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Create conversations and messages
-        $this->command->info('💬 Creating messages...');
+                // Create conversations and messages
+        $this->command->info('💬 Kuriamos žinutės...');
         $messageTemplates = [
-            'Hi! I\'m interested in booking your yacht. Is it available for next month?',
-            'Hello! Could you provide more details about the amenities included?',
-            'Thank you for the wonderful experience! The yacht was perfect.',
-            'I have a question about the check-in process. What time can we board?',
-            'Is there a captain included or do we need to hire one separately?',
-            'Can you accommodate dietary restrictions for the catering service?',
-            'What\'s the cancellation policy for bookings?',
-            'I\'d like to extend my booking by a few days. Is that possible?',
+            'Sveiki! Norėčiau užsisakyti jūsų jachtą. Ar ji laisva kitą mėnesį?',
+            'Sveiki! Ar galėtumėte pateikti daugiau informacijos apie įtrauktus patogumus?',
+            'Ačiū už nuostabią patirtį! Jachta buvo tobula.',
+            'Turiu klausimą dėl registracijos proceso. Kada galime įlipti?',
+            'Ar kapitonas įskaičiuotas, ar reikia jį samdyti atskirai?',
+            'Ar galite pritaikyti maitinimo paslaugas pagal mitybos apribojimus?',
+            'Kokia yra užsakymų atšaukimo politika?',
+            'Norėčiau pratęsti savo užsakymą keliomis dienomis. Ar tai įmanoma?',
         ];
 
         $ownerResponses = [
-            'Thank you for your interest! Yes, the yacht is available. I\'ll send you more details.',
-            'Of course! The yacht includes all standard amenities plus water sports equipment.',
-            'Thank you so much! It was a pleasure hosting you.',
-            'You can board anytime after 2 PM. I\'ll be there to show you around.',
-            'A professional captain is included in the price for your safety and convenience.',
-            'Absolutely! We can accommodate any dietary needs. Just let us know in advance.',
-            'You can cancel up to 14 days before for a full refund.',
-            'I\'d be happy to accommodate that! Let me check the schedule.',
+            'Ačiū už susidomėjimą! Taip, jachta laisva. Atsiųsiu jums daugiau informacijos.',
+            'Žinoma! Jachtoje yra visi standartiniai patogumai ir vandens sporto įranga.',
+            'Labai ačiū! Buvo malonu jus priimti.',
+            'Galite įlipti bet kada po 14 val. Aš būsiu ten, kad viską aprodyti.',
+            'Profesionalus kapitonas įskaičiuotas į kainą jūsų saugumui ir patogumui.',
+            'Absoliučiai! Galime prisitaikyti prie bet kokių mitybos poreikių. Tiesiog praneškite mums iš anksto.',
+            'Galite atšaukti likus 14 dienų iki užsakymo ir gauti visą pinigų grąžinimą.',
+            'Mielai tai padarysiu! Leiskite patikrinti tvarkaraštį.',
         ];
 
         foreach ($ownerUsers as $owner) {
@@ -341,13 +419,13 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        $this->command->info('✅ Database seeding completed successfully!');
-        $this->command->info('📊 Summary:');
-        $this->command->info('   - Users: ' . User::count());
-        $this->command->info('   - Yachts: ' . Yacht::count());
-        $this->command->info('   - Bookings: ' . Booking::count());
-        $this->command->info('   - Reviews: ' . Review::count());
-        $this->command->info('   - Messages: ' . Message::count());
+        $this->command->info('✅ Duomenų bazės užpildymas sėkmingai baigtas!');
+        $this->command->info('📊 Santrauka:');
+        $this->command->info('   - Vartotojai: ' . User::count());
+        $this->command->info('   - Jachtos: ' . Yacht::count());
+        $this->command->info('   - Užsakymai: ' . Booking::count());
+        $this->command->info('   - Atsiliepimai: ' . Review::count());
+        $this->command->info('   - Žinutės: ' . Message::count());
     }
 
     /**
@@ -390,7 +468,7 @@ class DatabaseSeeder extends Seeder
                 }
             }
         } catch (\Exception $e) {
-            $this->command->warn("  ⚠ Could not download images for {$yacht->title}: {$e->getMessage()}");
+            $this->command->warn("  ⚠ Nepavyko atsiųsti nuotraukų jachtai {$yacht->title}: {$e->getMessage()}");
         }
     }
 
