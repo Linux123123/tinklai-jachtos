@@ -158,7 +158,7 @@ export default function YachtsIndex({ yachts, filters = {} }: YachtsIndexProps) 
                 ) : (
                     <>
                         <div className="text-muted-foreground mb-4 text-sm">
-                            Rodoma {yachts.data.length} iš {yachts.total} jachtų
+                            Rodoma {yachts.data.length} jachtų
                         </div>
 
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
