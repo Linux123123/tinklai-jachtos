@@ -1,5 +1,5 @@
 services:
-    yachts.linux123123.com:
+    laravel.test:
         build:
             context: './docker/8.4'
             dockerfile: Dockerfile

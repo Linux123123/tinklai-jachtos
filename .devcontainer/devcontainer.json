@@ -2,7 +2,7 @@
 {
     "name": "Tinklai Yachts",
     "dockerComposeFile": ["../compose.yaml"],
-    "service": "yachts.linux123123.com",
+    "service": "laravel.test",
     "workspaceFolder": "/var/www/html",
     "customizations": {
         "vscode": {
