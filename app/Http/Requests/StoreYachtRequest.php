@@ -26,6 +26,9 @@ class StoreYachtRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:5000'],
+            'manufacturer' => ['nullable', 'string', 'max:255'],
+            'model' => ['nullable', 'string', 'max:255'],
+            'year' => ['nullable', 'integer', 'min:1900', 'max:' . (date('Y') + 1)],
             'type' => ['required', 'string', Rule::in(['sailboat', 'motorboat', 'catamaran', 'yacht'])],
             'capacity' => ['required', 'integer', 'min:1', 'max:100'],
             'location' => ['required', 'string', 'max:255'],

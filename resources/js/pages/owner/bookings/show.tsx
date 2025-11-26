@@ -122,7 +122,7 @@ export default function OwnerBookingShow({ booking }: OwnerBookingShowProps) {
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-muted-foreground text-sm">Talpa:</span>
-                                    <span className="text-sm font-medium">{booking.yacht?.capacity} svečiai</span>
+                                    <span className="text-sm font-medium">{booking.yacht?.capacity} svečių</span>
                                 </div>
                             </div>
                         </CardContent>

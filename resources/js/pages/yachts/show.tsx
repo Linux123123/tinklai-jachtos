@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import PublicLayout from '@/layouts/public-layout';
 import { Yacht } from '@/types/models';
 import { Head, router } from '@inertiajs/react';
-import { Anchor, Calendar, MapPin, MessageSquare, Users } from 'lucide-react';
+import { Anchor, Building2, Calendar, MapPin, MessageSquare, Ship, Users } from 'lucide-react';
 import { useState } from 'react';
 
 interface YachtShowProps {
@@ -15,18 +15,17 @@ interface YachtShowProps {
 }
 
 const YachtStatus: Record<any, any> = {
-    'available': 'Galima nuomoti',
-    'unavailable': 'Negalima nuomoti',
-    'maintenance': 'Priežiūroje',
-}
+    available: 'Galima nuomoti',
+    unavailable: 'Negalima nuomoti',
+    maintenance: 'Priežiūroje',
+};
 
 const YachtType: Record<any, any> = {
-    'sailboat': 'Jachta',
-    'motorboat': 'Motorinė valtis',
-    'catamaran': 'Katamaras',
-    'yacht': 'Jachta',
-}
-
+    sailboat: 'Jachta',
+    motorboat: 'Motorinė valtis',
+    catamaran: 'Katamaras',
+    yacht: 'Jachta',
+};
 
 export default function YachtShow({ yacht }: YachtShowProps) {
     const [selectedPeriod, setSelectedPeriod] = useState<number | null>(null);
@@ -60,11 +59,11 @@ export default function YachtShow({ yacht }: YachtShowProps) {
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <Anchor className="h-4 w-4" />
-                                    <span className="capitalize">{YachtType[yacht.type] ?? "Nežinzomas tipas"}</span>
+                                    <span className="capitalize">{YachtType[yacht.type] ?? 'Nežinzomas tipas'}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <Users className="h-4 w-4" />
-                                    <span>{yacht.capacity} svečiai</span>
+                                    <span>{yacht.capacity} svečių</span>
                                 </div>
                             </div>
                         </div>
@@ -129,22 +128,63 @@ export default function YachtShow({ yacht }: YachtShowProps) {
                             <CardHeader>
                                 <CardTitle>Specifikacijos</CardTitle>
                             </CardHeader>
-                            <CardContent className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <p className="text-sm font-medium">Tipas</p>
-                                    <p className="text-muted-foreground capitalize">{yacht.type}</p>
+                            <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                                <div className="flex items-start gap-3">
+                                    <Anchor className="text-muted-foreground mt-0.5 h-5 w-5" />
+                                    <div>
+                                        <p className="text-sm font-medium">Tipas</p>
+                                        <p className="text-muted-foreground capitalize">{YachtType[yacht.type] ?? yacht.type}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-sm font-medium">Talpa</p>
-                                    <p className="text-muted-foreground">{yacht.capacity} svečiai</p>
+                                {yacht.manufacturer && (
+                                    <div className="flex items-start gap-3">
+                                        <Building2 className="text-muted-foreground mt-0.5 h-5 w-5" />
+                                        <div>
+                                            <p className="text-sm font-medium">Gamintojas</p>
+                                            <p className="text-muted-foreground">{yacht.manufacturer}</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {yacht.model && (
+                                    <div className="flex items-start gap-3">
+                                        <Ship className="text-muted-foreground mt-0.5 h-5 w-5" />
+                                        <div>
+                                            <p className="text-sm font-medium">Modelis</p>
+                                            <p className="text-muted-foreground">{yacht.model}</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {yacht.year && (
+                                    <div className="flex items-start gap-3">
+                                        <Calendar className="text-muted-foreground mt-0.5 h-5 w-5" />
+                                        <div>
+                                            <p className="text-sm font-medium">Metai</p>
+                                            <p className="text-muted-foreground">{yacht.year}</p>
+                                        </div>
+                                    </div>
+                                )}
+                                <div className="flex items-start gap-3">
+                                    <Users className="text-muted-foreground mt-0.5 h-5 w-5" />
+                                    <div>
+                                        <p className="text-sm font-medium">Talpa</p>
+                                        <p className="text-muted-foreground">{yacht.capacity} svečių</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-sm font-medium">Vieta</p>
-                                    <p className="text-muted-foreground">{yacht.location}</p>
+                                <div className="flex items-start gap-3">
+                                    <MapPin className="text-muted-foreground mt-0.5 h-5 w-5" />
+                                    <div>
+                                        <p className="text-sm font-medium">Vieta</p>
+                                        <p className="text-muted-foreground">{yacht.location}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-sm font-medium">Būsena</p>
-                                    <Badge variant={yacht.status === 'available' ? 'default' : 'secondary'}>{YachtStatus[yacht.status] ?? "Nežinomas Statusas"}</Badge>
+                                <div className="flex items-start gap-3">
+                                    <div className="mt-0.5 h-5 w-5" />
+                                    <div>
+                                        <p className="text-sm font-medium">Būsena</p>
+                                        <Badge variant={yacht.status === 'available' ? 'default' : 'secondary'}>
+                                            {YachtStatus[yacht.status] ?? 'Nežinomas Statusas'}
+                                        </Badge>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>

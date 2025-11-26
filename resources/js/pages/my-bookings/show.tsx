@@ -5,21 +5,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
 import { Booking } from '@/types/models';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { differenceInDays, format, isPast, parseISO } from 'date-fns';
 import { Anchor, Calendar, Eye, Info, MapPin, Star, User, Users, XCircle } from 'lucide-react';
-import { Link } from '@inertiajs/react';
 
 interface MyBookingsShowProps {
     booking: Booking;
 }
 
 const BookingStatus: Record<any, any> = {
-    'pending': 'Laukiama patvirtinimo',
-    'confirmed': 'Patvirtinta',
-    'cancelled': 'Atšaukta',
-    'completed': 'Užbaigta',
-}
+    pending: 'Laukiama patvirtinimo',
+    confirmed: 'Patvirtinta',
+    cancelled: 'Atšaukta',
+    completed: 'Užbaigta',
+};
 
 export default function MyBookingsShow({ booking }: MyBookingsShowProps) {
     const getStatusVariant = (status: string) => {
@@ -144,7 +143,7 @@ export default function MyBookingsShow({ booking }: MyBookingsShowProps) {
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     <Users className="text-muted-foreground h-4 w-4" />
-                                                    <span>{booking.yacht.capacity} svečiai</span>
+                                                    <span>{booking.yacht.capacity} svečių</span>
                                                 </div>
                                             </div>
                                             <Button variant="outline" size="sm" onClick={handleViewYacht}>

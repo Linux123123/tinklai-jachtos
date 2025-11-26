@@ -96,6 +96,9 @@ class YachtController extends Controller
             'capacity' => ['required', 'integer', 'min:1'],
             'location' => ['required', 'string', 'max:255'],
             'status' => ['required', 'string', 'in:available,unavailable,under_maintenance'],
+            'manufacturer' => ['nullable', 'string', 'max:255'],
+            'model' => ['nullable', 'string', 'max:255'],
+            'year' => ['nullable', 'integer', 'min:1900', 'max:' . (date('Y') + 1)],
         ]);
 
         $yacht->update($validated);

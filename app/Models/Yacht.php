@@ -18,6 +18,9 @@ class Yacht extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'manufacturer',
+        'model',
+        'year',
         'description',
         'type',
         'capacity',

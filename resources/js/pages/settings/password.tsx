@@ -30,7 +30,10 @@ export default function Password() {
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title="Atnaujinti slaptažodį" description="Įsitikinkite, kad jūsų paskyra naudoja ilgą, atsitiktinį slaptažodį, kad išliktų saugi" />
+                    <HeadingSmall
+                        title="Atnaujinti slaptažodį"
+                        description="Įsitikinkite, kad jūsų paskyra naudoja ilgą, atsitiktinį slaptažodį, kad išliktų saugi"
+                    />
 
                     <Form
                         {...PasswordController.update.form()}

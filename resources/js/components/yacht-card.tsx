@@ -12,17 +12,17 @@ interface YachtCardProps {
 }
 
 const YachtStatus: Record<any, any> = {
-    'available': 'Galima nuomoti',
-    'unavailable': 'Negalima nuomoti',
-    'maintenance': 'Priežiūroje',
-}
+    available: 'Galima nuomoti',
+    unavailable: 'Negalima nuomoti',
+    maintenance: 'Priežiūroje',
+};
 
 const YachtType: Record<any, any> = {
-    'sailboat': 'Jachta',
-    'motorboat': 'Motorinė valtis',
-    'catamaran': 'Katamaras',
-    'yacht': 'Jachta',
-}
+    sailboat: 'Jachta',
+    motorboat: 'Motorinė valtis',
+    catamaran: 'Katamaras',
+    yacht: 'Jachta',
+};
 
 export function YachtCard({ yacht, showOwner = false, actionButton }: YachtCardProps) {
     return (
@@ -39,6 +39,9 @@ export function YachtCard({ yacht, showOwner = false, actionButton }: YachtCardP
 
             <CardContent className="flex-1 pt-6">
                 <CardTitle className="mb-2 line-clamp-1">{yacht.title}</CardTitle>
+                <div className="text-muted-foreground mb-2 text-sm">
+                    {yacht.manufacturer} {yacht.model} {yacht.year && `(${yacht.year})`}
+                </div>
                 <CardDescription className="mb-4 line-clamp-2">{yacht.description}</CardDescription>
 
                 <div className="space-y-2 text-sm">
@@ -46,7 +49,11 @@ export function YachtCard({ yacht, showOwner = false, actionButton }: YachtCardP
                         <Badge variant="outline" className="mr-2">
                             {YachtType[yacht.type] || 'Nežinomas tipas'}
                         </Badge>
-                        {yacht.status && <Badge variant={yacht.status === 'available' ? 'default' : 'secondary'}>{YachtStatus[yacht.status] ?? 'Statusas nežinomas'}</Badge>}
+                        {yacht.status && (
+                            <Badge variant={yacht.status === 'available' ? 'default' : 'secondary'}>
+                                {YachtStatus[yacht.status] ?? 'Statusas nežinomas'}
+                            </Badge>
+                        )}
                     </div>
                     <div className="text-muted-foreground flex items-center">
                         <MapPin className="mr-2 h-4 w-4" />
@@ -61,12 +68,13 @@ export function YachtCard({ yacht, showOwner = false, actionButton }: YachtCardP
                             <span className="text-xs">Savininkas: {yacht.owner.name}</span>
                         </div>
                     )}
-                    {yacht.averageRating && yacht.averageRating > 0 && yacht.reviewsCount  ? (
+                    {yacht.averageRating && yacht.averageRating > 0 && yacht.reviewsCount ? (
                         <div className="flex items-center">
                             <Star className="mr-1 h-4 w-4 fill-yellow-500 text-yellow-500" />
                             <span className="font-medium">{yacht.averageRating}</span>
                             <span className="text-muted-foreground ml-1">
-                                ({yacht.reviewsCount} {yacht.reviewsCount === 1 ? 'atsiliepimas' : yacht.reviewsCount < 10 ? 'atsiliepimai' : 'atsiliepimų'})
+                                ({yacht.reviewsCount}{' '}
+                                {yacht.reviewsCount === 1 ? 'atsiliepimas' : yacht.reviewsCount < 10 ? 'atsiliepimai' : 'atsiliepimų'})
                             </span>
                         </div>
                     ) : null}

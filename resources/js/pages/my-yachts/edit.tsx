@@ -19,7 +19,7 @@ export default function EditYacht({ yacht }: EditYachtProps) {
     // Convert ISO date strings to YYYY-MM-DD format for date inputs
     const formatPricingsForEdit = (pricings: Pricing[] | undefined): Pricing[] => {
         if (!pricings) return [];
-        return pricings.map(pricing => ({
+        return pricings.map((pricing) => ({
             ...pricing,
             startDate: pricing.startDate ? pricing.startDate.split('T')[0] : '',
             endDate: pricing.endDate ? pricing.endDate.split('T')[0] : '',
@@ -37,6 +37,9 @@ export default function EditYacht({ yacht }: EditYachtProps) {
         capacity: yacht.capacity || 1,
         location: yacht.location || '',
         status: yacht.status || 'available',
+        manufacturer: yacht.manufacturer || '',
+        model: yacht.model || '',
+        year: yacht.year || new Date().getFullYear(),
     });
 
     const handleSubmit: FormEventHandler = (e) => {
@@ -129,9 +132,13 @@ export default function EditYacht({ yacht }: EditYachtProps) {
     };
 
     const handleSetPrimaryImage = (imageId: number) => {
-        router.post(`/my-yachts/${yacht.id}/images/${imageId}/primary`, {}, {
-            preserveState: true,
-        });
+        router.post(
+            `/my-yachts/${yacht.id}/images/${imageId}/primary`,
+            {},
+            {
+                preserveState: true,
+            },
+        );
     };
 
     return (
@@ -206,6 +213,47 @@ export default function EditYacht({ yacht }: EditYachtProps) {
                                             required
                                         />
                                         {errors.capacity && <p className="text-destructive mt-1 text-sm">{errors.capacity}</p>}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                    <div>
+                                        <Label htmlFor="manufacturer">Gamintojas</Label>
+                                        <Input
+                                            id="manufacturer"
+                                            value={data.manufacturer}
+                                            onChange={(e) => setData('manufacturer', e.target.value)}
+                                            placeholder="Bavaria, Beneteau, Jeanneau..."
+                                        />
+                                        {errors.manufacturer && <p className="text-destructive mt-1 text-sm">{errors.manufacturer}</p>}
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="model">Modelis</Label>
+                                        <Input
+                                            id="model"
+                                            value={data.model}
+                                            onChange={(e) => setData('model', e.target.value)}
+                                            placeholder="Cruiser 46, Oceanis 51.1..."
+                                        />
+                                        {errors.model && <p className="text-destructive mt-1 text-sm">{errors.model}</p>}
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="year">Metai</Label>
+                                        <Select value={data.year?.toString()} onValueChange={(value) => setData('year', parseInt(value))}>
+                                            <SelectTrigger id="year">
+                                                <SelectValue placeholder="Pasirinkti metus" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {Array.from({ length: 50 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+                                                    <SelectItem key={year} value={year.toString()}>
+                                                        {year}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.year && <p className="text-destructive mt-1 text-sm">{errors.year}</p>}
                                     </div>
                                 </div>
 
@@ -335,10 +383,10 @@ export default function EditYacht({ yacht }: EditYachtProps) {
                                         {yacht.images.map((image) => (
                                             <div key={image.id} className="group relative aspect-video overflow-hidden rounded-lg border">
                                                 <img src={image.url} alt={yacht.title} className="h-full w-full object-cover" />
-                                                
+
                                                 {/* Primary badge */}
                                                 {image.isPrimary && (
-                                                    <div className="bg-primary absolute left-2 top-2 rounded px-2 py-1 text-xs font-medium text-white">
+                                                    <div className="bg-primary absolute top-2 left-2 rounded px-2 py-1 text-xs font-medium text-white">
                                                         <Star className="mr-1 inline h-3 w-3" />
                                                         Pagrindinė
                                                     </div>
@@ -347,20 +395,12 @@ export default function EditYacht({ yacht }: EditYachtProps) {
                                                 {/* Actions overlay */}
                                                 <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
                                                     {!image.isPrimary && (
-                                                        <Button
-                                                            size="sm"
-                                                            variant="secondary"
-                                                            onClick={() => handleSetPrimaryImage(image.id)}
-                                                        >
+                                                        <Button size="sm" variant="secondary" onClick={() => handleSetPrimaryImage(image.id)}>
                                                             <Star className="mr-1 h-3 w-3" />
                                                             Nustatyti kaip pagrindinę
                                                         </Button>
                                                     )}
-                                                    <Button
-                                                        size="sm"
-                                                        variant="destructive"
-                                                        onClick={() => handleDeleteImage(image.id)}
-                                                    >
+                                                    <Button size="sm" variant="destructive" onClick={() => handleDeleteImage(image.id)}>
                                                         <Trash2 className="h-3 w-3" />
                                                     </Button>
                                                 </div>
@@ -396,10 +436,7 @@ export default function EditYacht({ yacht }: EditYachtProps) {
                                             JPEG, PNG, JPG arba WebP. Maks. 5MB vienai nuotraukai. Galite pasirinkti kelias nuotraukas.
                                         </p>
                                     </div>
-                                    <Button
-                                        onClick={handleImageUpload}
-                                        disabled={!selectedFiles || selectedFiles.length === 0 || uploading}
-                                    >
+                                    <Button onClick={handleImageUpload} disabled={!selectedFiles || selectedFiles.length === 0 || uploading}>
                                         {uploading ? (
                                             <>Įkeliama...</>
                                         ) : (

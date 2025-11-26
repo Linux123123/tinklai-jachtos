@@ -67,7 +67,12 @@ export function ReviewList({
                             {/* Date */}
                             <div className="text-right">
                                 <p className="text-muted-foreground text-sm">
-                                    {review.createdAt ? formatDistanceToNow(new Date(review.createdAt), { addSuffix: true, locale: { formatDistance: (token: string) => token } }) : 'Neseniai'}
+                                    {review.createdAt
+                                        ? formatDistanceToNow(new Date(review.createdAt), {
+                                              addSuffix: true,
+                                              locale: { formatDistance: (token: string) => token },
+                                          })
+                                        : 'Neseniai'}
                                 </p>
                             </div>
                         </div>

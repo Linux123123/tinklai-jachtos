@@ -39,7 +39,8 @@ export default function TwoFactor({ requiresConfirmation = false, twoFactorEnabl
                         <div className="flex flex-col items-start justify-start space-y-4">
                             <Badge variant="default">Įjungta</Badge>
                             <p className="text-muted-foreground">
-                                Kai dviejų veiksnių autentifikavimas įjungtas, prisijungimo metu būsite paraginti įvesti saugų atsitiktinį PIN kodą, kurį galite gauti iš TOTP palaikančios programos savo telefone.
+                                Kai dviejų veiksnių autentifikavimas įjungtas, prisijungimo metu būsite paraginti įvesti saugų atsitiktinį PIN kodą,
+                                kurį galite gauti iš TOTP palaikančios programos savo telefone.
                             </p>
 
                             <TwoFactorRecoveryCodes recoveryCodesList={recoveryCodesList} fetchRecoveryCodes={fetchRecoveryCodes} errors={errors} />
@@ -58,7 +59,8 @@ export default function TwoFactor({ requiresConfirmation = false, twoFactorEnabl
                         <div className="flex flex-col items-start justify-start space-y-4">
                             <Badge variant="destructive">Išjungta</Badge>
                             <p className="text-muted-foreground">
-                                Kai įjungsite dviejų veiksnių autentifikavimą, prisijungimo metu būsite paraginti įvesti saugų PIN kodą. Šį PIN kodą galite gauti iš TOTP palaikančios programos savo telefone.
+                                Kai įjungsite dviejų veiksnių autentifikavimą, prisijungimo metu būsite paraginti įvesti saugų PIN kodą. Šį PIN kodą
+                                galite gauti iš TOTP palaikančios programos savo telefone.
                             </p>
 
                             <div>

@@ -29,7 +29,8 @@ export default function DeleteUser() {
                     <DialogContent>
                         <DialogTitle>Ar tikrai norite ištrinti savo paskyrą?</DialogTitle>
                         <DialogDescription>
-                            Ištrinus paskyrą, visi jos ištekliai ir duomenys taip pat bus negrįžtamai ištrinti. Prašome įvesti savo slaptažodį, kad patvirtintumėte, jog norite negrįžtamai ištrinti savo paskyrą.
+                            Ištrinus paskyrą, visi jos ištekliai ir duomenys taip pat bus negrįžtamai ištrinti. Prašome įvesti savo slaptažodį, kad
+                            patvirtintumėte, jog norite negrįžtamai ištrinti savo paskyrą.
                         </DialogDescription>
 
                         <Form

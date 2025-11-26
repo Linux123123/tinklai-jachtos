@@ -69,6 +69,9 @@ export interface Yacht extends Timestamps {
     userId: number;
     title: string;
     description: string;
+    manufacturer?: string;
+    model?: string;
+    year?: number;
     type: string; // sailboat, motorboat, catamaran, etc.
     capacity: number;
     location: string;

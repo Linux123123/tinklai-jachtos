@@ -9,10 +9,7 @@ import { Form, Head } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
     return (
-        <AuthLayout
-            title="Patvirtinkite slaptažodį"
-            description="Tai saugi programos sritis. Prašome patvirtinti savo slaptažodį prieš tęsiant."
-        >
+        <AuthLayout title="Patvirtinkite slaptažodį" description="Tai saugi programos sritis. Prašome patvirtinti savo slaptažodį prieš tęsiant.">
             <Head title="Patvirtinti slaptažodį" />
 
             <Form {...store.form()} resetOnSuccess={['password']}>
@@ -20,7 +17,14 @@ export default function ConfirmPassword() {
                     <div className="space-y-6">
                         <div className="grid gap-2">
                             <Label htmlFor="password">Slaptažodis</Label>
-                            <Input id="password" type="password" name="password" placeholder="Slaptažodis" autoComplete="current-password" autoFocus />
+                            <Input
+                                id="password"
+                                type="password"
+                                name="password"
+                                placeholder="Slaptažodis"
+                                autoComplete="current-password"
+                                autoFocus
+                            />
 
                             <InputError message={errors.password} />
                         </div>

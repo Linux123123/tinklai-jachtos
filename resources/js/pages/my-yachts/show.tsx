@@ -45,7 +45,7 @@ export default function MyYachtShow({ yacht }: MyYachtShowProps) {
                             </div>
                             <div className="flex items-center gap-1">
                                 <Users className="h-4 w-4" />
-                                <span>{yacht.capacity} svečiai</span>
+                                <span>{yacht.capacity} svečių</span>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ export default function MyYachtShow({ yacht }: MyYachtShowProps) {
                                 <Separator />
                                 <div className="flex items-center justify-between">
                                     <span className="text-muted-foreground text-sm">Talpa</span>
-                                    <span className="font-medium">{yacht.capacity} svečiai</span>
+                                    <span className="font-medium">{yacht.capacity} svečių</span>
                                 </div>
                                 <Separator />
                                 <div className="flex items-center justify-between">

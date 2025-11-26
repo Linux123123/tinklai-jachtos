@@ -85,7 +85,9 @@ export default function BookingsIndex({ bookings }: BookingsIndexProps) {
                                             {booking.status === 'pending' && (
                                                 <p className="text-muted-foreground text-xs">Laukiama savininko patvirtinimo</p>
                                             )}
-                                            {booking.status === 'confirmed' && <p className="text-xs text-green-600">Jūsų rezervacija patvirtinta!</p>}
+                                            {booking.status === 'confirmed' && (
+                                                <p className="text-xs text-green-600">Jūsų rezervacija patvirtinta!</p>
+                                            )}
                                         </div>
                                     </div>
 

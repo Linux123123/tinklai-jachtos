@@ -21,6 +21,9 @@ export default function AdminYachtEdit({ yacht }: AdminYachtEditProps) {
         capacity: yacht.capacity || 1,
         location: yacht.location || '',
         status: yacht.status || 'available',
+        manufacturer: yacht.manufacturer || '',
+        model: yacht.model || '',
+        year: yacht.year || new Date().getFullYear(),
     });
 
     const handleSubmit: FormEventHandler = (e) => {
@@ -104,6 +107,50 @@ export default function AdminYachtEdit({ yacht }: AdminYachtEditProps) {
                                         required
                                     />
                                     {errors.capacity && <p className="text-destructive mt-1 text-sm">{errors.capacity}</p>}
+                                </div>
+                            </div>
+
+                            {/* Manufacturer, Model, Year */}
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                <div>
+                                    <Label htmlFor="manufacturer">Gamintojas</Label>
+                                    <Input
+                                        id="manufacturer"
+                                        value={data.manufacturer}
+                                        onChange={(e) => setData('manufacturer', e.target.value)}
+                                        placeholder="Bavaria, Beneteau, Jeanneau..."
+                                        className="mt-2"
+                                    />
+                                    {errors.manufacturer && <p className="text-destructive mt-1 text-sm">{errors.manufacturer}</p>}
+                                </div>
+
+                                <div>
+                                    <Label htmlFor="model">Modelis</Label>
+                                    <Input
+                                        id="model"
+                                        value={data.model}
+                                        onChange={(e) => setData('model', e.target.value)}
+                                        placeholder="Cruiser 46, Oceanis 51.1..."
+                                        className="mt-2"
+                                    />
+                                    {errors.model && <p className="text-destructive mt-1 text-sm">{errors.model}</p>}
+                                </div>
+
+                                <div>
+                                    <Label htmlFor="year">Metai</Label>
+                                    <Select value={data.year?.toString()} onValueChange={(value) => setData('year', parseInt(value))}>
+                                        <SelectTrigger className="mt-2">
+                                            <SelectValue placeholder="Pasirinkti metus" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {Array.from({ length: 50 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+                                                <SelectItem key={year} value={year.toString()}>
+                                                    {year}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {errors.year && <p className="text-destructive mt-1 text-sm">{errors.year}</p>}
                                 </div>
                             </div>
 

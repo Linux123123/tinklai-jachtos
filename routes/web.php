@@ -89,7 +89,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('reviews.destroy');
 
     // Admin routes
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware(['permission:view statistics'])->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
             ->name('dashboard');
         Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
@@ -98,17 +98,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('statistics');
 
         // User management
-        Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+        Route::resource('users', App\Http\Controllers\Admin\UserController::class)
+            ->middleware('permission:manage users');
         Route::post('users/{user}/toggle-block', [App\Http\Controllers\Admin\UserController::class, 'toggleBlock'])
-            ->name('users.toggle-block');
+            ->name('users.toggle-block')
+            ->middleware('permission:manage users');
         Route::post('users/{user}/assign-role', [App\Http\Controllers\Admin\UserController::class, 'assignRole'])
-            ->name('users.assign-role');
+            ->name('users.assign-role')
+            ->middleware('permission:assign roles');
 
         // Yacht management
         Route::resource('yachts', App\Http\Controllers\Admin\YachtController::class)
-            ->only(['index', 'show', 'edit', 'update', 'destroy']);
+            ->only(['index', 'show', 'edit', 'update', 'destroy'])
+            ->middleware('permission:manage all yachts');
         Route::post('yachts/{yacht}/update-status', [App\Http\Controllers\Admin\YachtController::class, 'updateStatus'])
-            ->name('yachts.update-status');
+            ->name('yachts.update-status')
+            ->middleware('permission:manage all yachts');
     });
 });
 

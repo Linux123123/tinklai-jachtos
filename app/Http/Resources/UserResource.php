@@ -19,7 +19,6 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'avatar' => $this->avatar ?? null,
-            'email_verified_at' => $this->email_verified_at?->toISOString(),
             'two_factor_enabled' => !is_null($this->two_factor_secret),
             'created_at' => $this->created_at->toISOString(),
             'updated_at' => $this->updated_at->toISOString(),

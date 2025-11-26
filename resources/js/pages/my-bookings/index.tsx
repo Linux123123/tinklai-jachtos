@@ -22,12 +22,11 @@ interface MyBookingsIndexProps {
 }
 
 const BookingStatus: Record<any, any> = {
-    'pending': 'Laukiama patvirtinimo',
-    'confirmed': 'Patvirtinta',
-    'cancelled': 'Atšaukta',
-    'completed': 'Užbaigta',
-}
-  
+    pending: 'Laukiama patvirtinimo',
+    confirmed: 'Patvirtinta',
+    cancelled: 'Atšaukta',
+    completed: 'Užbaigta',
+};
 
 export default function MyBookingsIndex({ bookings }: MyBookingsIndexProps) {
     const getStatusVariant = (status: string) => {
@@ -137,7 +136,9 @@ export default function MyBookingsIndex({ bookings }: MyBookingsIndexProps) {
 
                                         {/* Actions */}
                                         <div className="flex flex-col items-end justify-between">
-                                            <Badge variant={getStatusVariant(booking.status)}>{BookingStatus[booking.status] ?? "Nežinomas statusas"}</Badge>
+                                            <Badge variant={getStatusVariant(booking.status)}>
+                                                {BookingStatus[booking.status] ?? 'Nežinomas statusas'}
+                                            </Badge>
                                             <div className="mt-4 flex gap-2">
                                                 <Button variant="outline" size="sm" onClick={() => handleViewBooking(booking.id)}>
                                                     <Eye className="mr-1 h-4 w-4" />

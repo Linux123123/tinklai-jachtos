@@ -2,8 +2,8 @@ import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSep
 import { UserInfo } from '@/components/user-info';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
 import { logout } from '@/routes';
+import { index } from '@/routes/my-bookings';
 import { edit } from '@/routes/profile';
-import { index } from '@/routes/my-bookings'
 import { type User } from '@/types';
 import { Link, router } from '@inertiajs/react';
 import { LayoutGrid, LogOut, Settings } from 'lucide-react';

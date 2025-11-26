@@ -26,11 +26,11 @@ interface PriceBreakdown {
 }
 
 const YachtType: Record<any, any> = {
-    'sailboat': 'Jachta',
-    'motorboat': 'Motorinė valtis',
-    'catamaran': 'Katamaras',
-    'yacht': 'Jachta',
-}
+    sailboat: 'Jachta',
+    motorboat: 'Motorinė valtis',
+    catamaran: 'Katamaras',
+    yacht: 'Jachta',
+};
 
 export default function BookingCreate({ yacht }: BookingCreateProps) {
     const [startDate, setStartDate] = useState<Date>();
@@ -195,7 +195,9 @@ export default function BookingCreate({ yacht }: BookingCreateProps) {
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <Alert>
                                         <Info className="h-4 w-4" />
-                                        <AlertDescription>Rezervacijos mokamos už savaitę. Kainos gali skirtis priklausomai nuo sezono.</AlertDescription>
+                                        <AlertDescription>
+                                            Rezervacijos mokamos už savaitę. Kainos gali skirtis priklausomai nuo sezono.
+                                        </AlertDescription>
                                     </Alert>
 
                                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

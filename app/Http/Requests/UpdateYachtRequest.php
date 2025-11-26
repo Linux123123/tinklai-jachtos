@@ -27,6 +27,9 @@ class UpdateYachtRequest extends FormRequest
         return [
             'title' => ['sometimes', 'string', 'max:255'],
             'description' => ['sometimes', 'string', 'max:5000'],
+            'manufacturer' => ['nullable', 'string', 'max:255'],
+            'model' => ['nullable', 'string', 'max:255'],
+            'year' => ['nullable', 'integer', 'min:1900', 'max:' . (date('Y') + 1)],
             'type' => ['sometimes', 'string', Rule::in(['sailboat', 'motorboat', 'catamaran', 'yacht'])],
             'capacity' => ['sometimes', 'integer', 'min:1', 'max:100'],
             'location' => ['sometimes', 'string', 'max:255'],

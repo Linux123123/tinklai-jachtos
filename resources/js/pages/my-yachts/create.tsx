@@ -11,6 +11,9 @@ import AppLayout from '@/layouts/app-layout';
 import { Form, Head } from '@inertiajs/react';
 
 export default function CreateYacht() {
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({ length: 50 }, (_, i) => currentYear - i);
+
     return (
         <AppLayout>
             <Head title="Paskelbti naują jachtą" />
@@ -44,6 +47,38 @@ export default function CreateYacht() {
                                             placeholder="Aprašykite savo jachtą, jos funkcijas ir kas daro ją ypatingą..."
                                         />
                                         <InputError message={errors.description} />
+                                    </div>
+
+                                    {/* Manufacturer, Model, Year */}
+                                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="manufacturer">Gamintojas</Label>
+                                            <Input id="manufacturer" name="manufacturer" placeholder="pvz., Beneteau" />
+                                            <InputError message={errors.manufacturer} />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="model">Modelis</Label>
+                                            <Input id="model" name="model" placeholder="pvz., Oceanis 51.1" />
+                                            <InputError message={errors.model} />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="year">Metai</Label>
+                                            <Select name="year">
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Pasirinkti metus" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {years.map((year) => (
+                                                        <SelectItem key={year} value={year.toString()}>
+                                                            {year}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <InputError message={errors.year} />
+                                        </div>
                                     </div>
 
                                     {/* Type */}

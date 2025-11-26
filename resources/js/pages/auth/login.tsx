@@ -4,12 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, router } from '@inertiajs/react';
+import { Shield, Ship, User } from 'lucide-react';
 
 interface LoginProps {
     status?: string;
@@ -18,6 +20,10 @@ interface LoginProps {
 }
 
 export default function Login({ status, canResetPassword, canRegister }: LoginProps) {
+    const handleQuickLogin = (email: string, password: string) => {
+        router.post('/login', { email, password, remember: true });
+    };
+
     return (
         <AuthLayout title="Prisijunkite prie savo paskyros" description="Įveskite savo el. paštą ir slaptažodį, kad prisijungtumėte">
             <Head title="Prisijungti" />
@@ -81,6 +87,44 @@ export default function Login({ status, canResetPassword, canRegister }: LoginPr
                                 </TextLink>
                             </div>
                         )}
+
+                        {/* Quick Login Buttons for Development */}
+                        <div className="mt-4">
+                            <Separator className="my-4" />
+                            <p className="text-muted-foreground mb-3 text-center text-xs">Greitas prisijungimas (testavimui)</p>
+                            <div className="grid grid-cols-3 gap-2">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => handleQuickLogin('aiste@client.com', 'password')}
+                                    className="flex flex-col gap-1 py-3"
+                                >
+                                    <User className="h-4 w-4" />
+                                    <span className="text-xs">Klientas</span>
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => handleQuickLogin('jonas@yacht.com', 'password')}
+                                    className="flex flex-col gap-1 py-3"
+                                >
+                                    <Ship className="h-4 w-4" />
+                                    <span className="text-xs">Savininkas</span>
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => handleQuickLogin('admin@yacht.com', 'password')}
+                                    className="flex flex-col gap-1 py-3"
+                                >
+                                    <Shield className="h-4 w-4" />
+                                    <span className="text-xs">Adminas</span>
+                                </Button>
+                            </div>
+                        </div>
                     </>
                 )}
             </Form>

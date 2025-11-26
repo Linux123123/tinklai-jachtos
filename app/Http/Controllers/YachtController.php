@@ -15,56 +15,64 @@ class YachtController extends Controller
      */
     public function index(Request $request): Response
     {
-        $query = Yacht::query()
+        $yachts = \Spatie\QueryBuilder\QueryBuilder::for(Yacht::class)
+            ->allowedFilters([
+                'type',
+                'manufacturer',
+                'model',
+                \Spatie\QueryBuilder\AllowedFilter::exact('year'),
+                \Spatie\QueryBuilder\AllowedFilter::scope('price_range'), // We might need to implement this scope or filter
+                \Spatie\QueryBuilder\AllowedFilter::callback('search', function ($query, $value) {
+                    $query->where(function ($q) use ($value) {
+                        $q->where('title', 'like', "%{$value}%")
+                            ->orWhere('location', 'like', "%{$value}%")
+                            ->orWhere('manufacturer', 'like', "%{$value}%")
+                            ->orWhere('model', 'like', "%{$value}%");
+                    });
+                }),
+                \Spatie\QueryBuilder\AllowedFilter::callback('capacity', function ($query, $value) {
+                    $query->where('capacity', '>=', $value);
+                }),
+            ])
+            ->allowedSorts([
+                'year',
+                'created_at',
+                'reviews_avg_rating',
+                \Spatie\QueryBuilder\AllowedSort::callback('price', function ($query, $descending) {
+                    $direction = $descending ? 'desc' : 'asc';
+                    $query->orderByRaw('(SELECT MIN(price_per_week) FROM pricings WHERE pricings.yacht_id = yachts.id) ' . $direction);
+                }),
+            ])
+            ->defaultSort('-created_at')
             ->with(['primaryImage', 'owner', 'reviews'])
             ->withAvg('reviews', 'rating')
             ->withCount('reviews')
             ->where('status', 'available');
 
-        // Search by title or location
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('location', 'like', "%{$search}%");
-            });
-        }
+        $yachts = $yachts->paginate(12)->withQueryString();
 
-        // Filter by type
-        if ($request->filled('type')) {
-            $query->where('type', $request->input('type'));
-        }
+        $manufacturers = Yacht::distinct()->whereNotNull('manufacturer')->pluck('manufacturer')->sort()->values();
 
-        // Filter by capacity
-        if ($request->filled('capacity')) {
-            $query->where('capacity', '>=', $request->input('capacity'));
-        }
+        // Get manufacturer-model mapping for dependent filtering
+        $manufacturerModels = Yacht::whereNotNull('manufacturer')
+            ->whereNotNull('model')
+            ->select('manufacturer', 'model')
+            ->distinct()
+            ->get()
+            ->groupBy('manufacturer')
+            ->map(fn ($items) => $items->pluck('model')->sort()->values())
+            ->toArray();
 
-        // Filter by location
-        if ($request->filled('location')) {
-            $query->where('location', 'like', '%' . $request->input('location') . '%');
-        }
-
-        // Sort
-        $sortBy = $request->input('sortBy', 'latest');
-        match ($sortBy) {
-            'price_low' => $query->leftJoin('pricings', 'yachts.id', '=', 'pricings.yacht_id')
-                ->selectRaw('yachts.*, MIN(pricings.price_per_week) as min_price')
-                ->groupBy('yachts.id')
-                ->orderBy('min_price', 'asc'),
-            'price_high' => $query->leftJoin('pricings', 'yachts.id', '=', 'pricings.yacht_id')
-                ->selectRaw('yachts.*, MAX(pricings.price_per_week) as max_price')
-                ->groupBy('yachts.id')
-                ->orderByDesc('max_price'),
-            'rating' => $query->orderByDesc('reviews_avg_rating'),
-            default => $query->latest(),
-        };
-
-        $yachts = $query->paginate(12)->withQueryString();
+        $years = Yacht::distinct()->whereNotNull('year')->pluck('year')->sortDesc()->values();
+        $capacities = Yacht::distinct()->whereNotNull('capacity')->pluck('capacity')->sort()->values();
 
         return Inertia::render('yachts/index', [
             'yachts' => YachtResource::collection($yachts),
-            'filters' => $request->only(['search', 'type', 'capacity', 'location', 'sortBy']),
+            'filters' => $request->all(),
+            'manufacturers' => $manufacturers,
+            'manufacturerModels' => $manufacturerModels,
+            'years' => $years,
+            'capacities' => $capacities,
         ]);
     }
 

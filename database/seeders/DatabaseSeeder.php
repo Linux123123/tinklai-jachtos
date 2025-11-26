@@ -90,6 +90,9 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 6,
                 'location' => 'Majamis, Florida',
                 'query' => 'luxury sailing yacht',
+                'manufacturer' => 'Beneteau',
+                'model' => 'Oceanis 51.1',
+                'year' => 2022,
             ],
             [
                 'title' => 'Jūros Vėjas',
@@ -98,6 +101,9 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 8,
                 'location' => 'San Diegas, Kalifornija',
                 'query' => 'motor yacht ocean',
+                'manufacturer' => 'Azimut',
+                'model' => 'Flybridge 60',
+                'year' => 2023,
             ],
             [
                 'title' => 'Rojaus Katamaranas',
@@ -106,6 +112,9 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 12,
                 'location' => 'Ki Vestas, Florida',
                 'query' => 'catamaran sailing',
+                'manufacturer' => 'Lagoon',
+                'model' => '42',
+                'year' => 2021,
             ],
             [
                 'title' => 'Žydroji Dama',
@@ -114,6 +123,9 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 10,
                 'location' => 'Niuport Byčas, Kalifornija',
                 'query' => 'luxury yacht deck',
+                'manufacturer' => 'Sunseeker',
+                'model' => 'Manhattan 68',
+                'year' => 2024,
             ],
             [
                 'title' => 'Vėjo Šokėja',
@@ -122,6 +134,9 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 4,
                 'location' => 'Čarlstonas, Pietų Karolina',
                 'query' => 'classic sailboat',
+                'manufacturer' => 'Jeanneau',
+                'model' => 'Sun Odyssey 410',
+                'year' => 2020,
             ],
             [
                 'title' => 'Griaustinio Banga',
@@ -130,14 +145,20 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 6,
                 'location' => 'Majami Byčas, Florida',
                 'query' => 'speed boat yacht',
+                'manufacturer' => 'Sea Ray',
+                'model' => 'Sundancer 370',
+                'year' => 2023,
             ],
             [
                 'title' => 'Ramybė Dabar',
-                'description' => 'Ramus katamaranas, puikiai tinkantis meditacijos retritams ir jogos sesijoms ant vandens. Ekologiškas dizainas su saulės panelėmis ir tvariomis savybėmis.',
+                'description' => 'Ramus katamaranas, puikiai tinkanti meditacijos retritams ir jogos sesijoms ant vandens. Ekologiškas dizainas su saulės panelėmis ir tvariomis savybėmis.',
                 'type' => 'catamaran',
                 'capacity' => 8,
                 'location' => 'Honolulu, Havajai',
                 'query' => 'catamaran sunset',
+                'manufacturer' => 'Fountaine Pajot',
+                'model' => 'Isla 40',
+                'year' => 2022,
             ],
             [
                 'title' => 'Karališkasis Keliautojas',
@@ -146,6 +167,9 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 16,
                 'location' => 'Fort Loderdeilas, Florida',
                 'query' => 'mega yacht luxury',
+                'manufacturer' => 'Lürssen',
+                'model' => 'Custom',
+                'year' => 2019,
             ],
             [
                 'title' => 'Pakrantės Kruizeris',
@@ -154,6 +178,9 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 5,
                 'location' => 'Sietlas, Vašingtonas',
                 'query' => 'fishing yacht',
+                'manufacturer' => 'Bayliner',
+                'model' => 'Ciera 8',
+                'year' => 2021,
             ],
             [
                 'title' => 'Saulėlydžio Rojus',
@@ -162,6 +189,9 @@ class DatabaseSeeder extends Seeder
                 'capacity' => 7,
                 'location' => 'Santa Barbara, Kalifornija',
                 'query' => 'sailboat sunset ocean',
+                'manufacturer' => 'Bavaria',
+                'model' => 'C42',
+                'year' => 2023,
             ],
         ];
 
@@ -178,6 +208,9 @@ class DatabaseSeeder extends Seeder
                 'type' => $yachtData['type'],
                 'capacity' => $yachtData['capacity'],
                 'location' => $yachtData['location'],
+                'manufacturer' => $yachtData['manufacturer'],
+                'model' => $yachtData['model'],
+                'year' => $yachtData['year'],
                 'status' => 'available',
             ]);
 

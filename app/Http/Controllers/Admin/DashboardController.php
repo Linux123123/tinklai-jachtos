@@ -128,6 +128,36 @@ class DashboardController extends Controller
             ->orderBy('month')
             ->get();
 
+        // Ratings distribution (1-5 stars)
+        $ratingsDistribution = Review::query()
+            ->select('rating', DB::raw('COUNT(*) as count'))
+            ->groupBy('rating')
+            ->orderBy('rating')
+            ->get()
+            ->mapWithKeys(fn ($item) => [$item->rating => $item->count])
+            ->toArray();
+
+        // Fill in missing ratings with 0
+        $ratingsData = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $ratingsData[] = [
+                'rating' => $i,
+                'count' => $ratingsDistribution[$i] ?? 0,
+            ];
+        }
+
+        // Average rating over time (last 12 months)
+        $ratingsOverTime = Review::query()
+            ->select(
+                DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+                DB::raw('AVG(rating) as average_rating'),
+                DB::raw('COUNT(*) as count')
+            )
+            ->where('created_at', '>=', now()->subMonths(12))
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
         // Top yachts by bookings
         $topYachts = Yacht::query()
             ->withCount('bookings')
@@ -140,6 +170,8 @@ class DashboardController extends Controller
             'yachtsByType' => $yachtsByType,
             'bookingsByStatus' => $bookingsByStatus,
             'revenueByMonth' => $revenueByMonth,
+            'ratingsDistribution' => $ratingsData,
+            'ratingsOverTime' => $ratingsOverTime,
             'topYachts' => $topYachts,
         ]);
     }
