@@ -21,7 +21,6 @@ class YachtController extends Controller
                 'manufacturer',
                 'model',
                 \Spatie\QueryBuilder\AllowedFilter::exact('year'),
-                \Spatie\QueryBuilder\AllowedFilter::scope('price_range'), // We might need to implement this scope or filter
                 \Spatie\QueryBuilder\AllowedFilter::callback('search', function ($query, $value) {
                     $query->where(function ($q) use ($value) {
                         $q->where('title', 'like', "%{$value}%")
@@ -32,6 +31,16 @@ class YachtController extends Controller
                 }),
                 \Spatie\QueryBuilder\AllowedFilter::callback('capacity', function ($query, $value) {
                     $query->where('capacity', '>=', $value);
+                }),
+                \Spatie\QueryBuilder\AllowedFilter::callback('price_min', function ($query, $value) {
+                    $query->whereHas('pricings', function ($q) use ($value) {
+                        $q->where('price_per_week', '>=', $value);
+                    });
+                }),
+                \Spatie\QueryBuilder\AllowedFilter::callback('price_max', function ($query, $value) {
+                    $query->whereHas('pricings', function ($q) use ($value) {
+                        $q->where('price_per_week', '<=', $value);
+                    });
                 }),
             ])
             ->allowedSorts([
@@ -66,6 +75,11 @@ class YachtController extends Controller
         $years = Yacht::distinct()->whereNotNull('year')->pluck('year')->sortDesc()->values();
         $capacities = Yacht::distinct()->whereNotNull('capacity')->pluck('capacity')->sort()->values();
 
+        // Get price range from all pricings
+        $priceRange = \App\Models\Pricing::query()
+            ->selectRaw('MIN(price_per_week) as min_price, MAX(price_per_week) as max_price')
+            ->first();
+
         return Inertia::render('yachts/index', [
             'yachts' => YachtResource::collection($yachts),
             'filters' => $request->all(),
@@ -73,6 +87,10 @@ class YachtController extends Controller
             'manufacturerModels' => $manufacturerModels,
             'years' => $years,
             'capacities' => $capacities,
+            'priceRange' => [
+                'min' => (int) ($priceRange->min_price ?? 0),
+                'max' => (int) ($priceRange->max_price ?? 10000),
+            ],
         ]);
     }
 

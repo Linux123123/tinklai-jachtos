@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
 import { YachtCard } from '@/components/yacht-card';
 import PublicLayout from '@/layouts/public-layout';
 import { type Yacht } from '@/types';
@@ -32,6 +33,8 @@ interface YachtsIndexProps {
             model?: string;
             year?: string;
             capacity?: string;
+            price_min?: string;
+            price_max?: string;
         };
         sort?: string;
     };
@@ -39,9 +42,13 @@ interface YachtsIndexProps {
     manufacturerModels: Record<string, string[]>;
     years: number[];
     capacities: number[];
+    priceRange: {
+        min: number;
+        max: number;
+    };
 }
 
-export default function YachtsIndex({ yachts, filters = {}, manufacturers, manufacturerModels, years, capacities }: YachtsIndexProps) {
+export default function YachtsIndex({ yachts, filters = {}, manufacturers, manufacturerModels, years, capacities, priceRange }: YachtsIndexProps) {
     const [search, setSearch] = useState(filters.filter?.search || '');
     const [type, setType] = useState(filters.filter?.type || 'all');
     const [manufacturer, setManufacturer] = useState(filters.filter?.manufacturer || 'all');
@@ -49,6 +56,10 @@ export default function YachtsIndex({ yachts, filters = {}, manufacturers, manuf
     const [year, setYear] = useState(filters.filter?.year || 'all');
     const [capacity, setCapacity] = useState(filters.filter?.capacity || 'all');
     const [sortBy, setSortBy] = useState(typeof filters.sort === 'string' ? filters.sort : '-created_at');
+    const [priceValues, setPriceValues] = useState<[number, number]>([
+        filters.filter?.price_min ? parseInt(filters.filter.price_min) : priceRange.min,
+        filters.filter?.price_max ? parseInt(filters.filter.price_max) : priceRange.max,
+    ]);
 
     // Get available models based on selected manufacturer
     const availableModels = useMemo(() => {
@@ -69,6 +80,7 @@ export default function YachtsIndex({ yachts, filters = {}, manufacturers, manuf
     };
 
     const handleFilter = () => {
+        const isPriceFiltered = priceValues[0] !== priceRange.min || priceValues[1] !== priceRange.max;
         router.get(
             '/',
             {
@@ -78,6 +90,8 @@ export default function YachtsIndex({ yachts, filters = {}, manufacturers, manuf
                 'filter[model]': model !== 'all' ? model : undefined,
                 'filter[year]': year !== 'all' ? year : undefined,
                 'filter[capacity]': capacity !== 'all' ? capacity : undefined,
+                'filter[price_min]': isPriceFiltered ? priceValues[0] : undefined,
+                'filter[price_max]': isPriceFiltered ? priceValues[1] : undefined,
                 sort: sortBy || undefined,
             },
             {
@@ -95,6 +109,7 @@ export default function YachtsIndex({ yachts, filters = {}, manufacturers, manuf
         setYear('all');
         setCapacity('all');
         setSortBy('-created_at');
+        setPriceValues([priceRange.min, priceRange.max]);
         router.get('/');
     };
 
@@ -103,7 +118,9 @@ export default function YachtsIndex({ yachts, filters = {}, manufacturers, manuf
     const safeYears = Array.isArray(years) ? years : [];
     const safeCapacities = Array.isArray(capacities) ? capacities : [];
 
-    const hasActiveFilters = search || type !== 'all' || manufacturer !== 'all' || model !== 'all' || year !== 'all' || capacity !== 'all';
+    const isPriceFiltered = priceValues[0] !== priceRange.min || priceValues[1] !== priceRange.max;
+    const hasActiveFilters =
+        search || type !== 'all' || manufacturer !== 'all' || model !== 'all' || year !== 'all' || capacity !== 'all' || isPriceFiltered;
 
     return (
         <PublicLayout>
@@ -249,6 +266,28 @@ export default function YachtsIndex({ yachts, filters = {}, manufacturers, manuf
                                         <SelectItem value="-year">Metai (naujausi)</SelectItem>
                                     </SelectContent>
                                 </Select>
+                            </div>
+                        </div>
+
+                        {/* Price Range Slider */}
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <Label className="text-muted-foreground text-xs font-medium tracking-wide uppercase">Kaina per savaitę</Label>
+                                <span className="text-sm font-medium">
+                                    €{priceValues[0].toLocaleString()} – €{priceValues[1].toLocaleString()}
+                                </span>
+                            </div>
+                            <Slider
+                                value={priceValues}
+                                onValueChange={(value) => setPriceValues(value as [number, number])}
+                                min={priceRange.min}
+                                max={priceRange.max}
+                                step={100}
+                                className="w-full"
+                            />
+                            <div className="text-muted-foreground flex justify-between text-xs">
+                                <span>€{priceRange.min.toLocaleString()}</span>
+                                <span>€{priceRange.max.toLocaleString()}</span>
                             </div>
                         </div>
 

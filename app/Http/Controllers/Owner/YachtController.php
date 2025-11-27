@@ -9,6 +9,7 @@ use App\Http\Resources\YachtResource;
 use App\Models\Yacht;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -140,10 +141,11 @@ class YachtController extends Controller
      */
     protected function handleImageUploads(Yacht $yacht, array $images): void
     {
+        /* @var UploadedFile[] $images */
         $isFirst = $yacht->images()->count() === 0;
 
         foreach ($images as $index => $image) {
-            $path = $image->store('yachts', 'public');
+            $path = $image->store('yachts', ['disk' => 'public']);
 
             $yacht->images()->create([
                 'path' => $path,
